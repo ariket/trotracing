@@ -16,11 +16,17 @@ namespace trotracing
     public partial class MainWindow : Window
     {
         public bool DataFromATG = false;
-        public bool DataFromScraping = false;
-        
+      
         public MainWindow()
         {
             InitializeComponent();
+            
+            SetConsoleSettings(); //If you want to use the app without CMD remove this line and Right click
+                                  //on trotracing in Solution Explorer and click on Properties and finally
+        }                         //change Output type to "Windows Application" 
+
+        private void SetConsoleSettings()
+        {
             Console.SetWindowSize(130, 30);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -36,8 +42,7 @@ namespace trotracing
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             NotYetImplemnted.Visibility = Visibility.Visible;
-            ComboBoxMeny.IsEnabled = false;
-            
+            ComboBoxMeny.IsEnabled = false;    
         }
 
         private void Results_Click(object sender, RoutedEventArgs e)
@@ -79,12 +84,8 @@ namespace trotracing
             string[] lines = File.ReadAllLines(path);
             for (int i = 0; i < lines.Length; i++)
             {
-               // textBlock.Dispatcher.BeginInvoke(new Action(() =>
-               // {
-                    textBlock.Text += Environment.NewLine + lines[i];
-               // }));
+                textBlock.Text += Environment.NewLine + lines[i];
             }
-
         }
 
         private async void GetRace_Click(object sender, RoutedEventArgs e)

@@ -12,7 +12,6 @@ namespace trotracing
         {
             string pythonScript = "webscraping";
             string pythonScript2 = "result";
-            //Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
             string pythonScriptPath = "..\\..\\..\\ATG";
             Runtime.PythonDLL = @"C:\Python312\python312.dll";
             PythonEngine.Initialize();
@@ -35,7 +34,9 @@ namespace trotracing
         }
 
         public static async Task<bool> GetDataFromATG(string RaceType)
+        //public static async Task<Tuple<bool, List<Races>>> GetDataFromATG(string RaceType)
         {
+            //RaceType = "GS75"; NYI
             string apiUrl = "https://www.atg.se/services/racinginfo/v1/api/products/" + RaceType;
 
             using HttpClient client = new();
@@ -47,7 +48,7 @@ namespace trotracing
                 {
                     string responseData = await response.Content.ReadAsStringAsync();
                     ATGData ATGData = JsonConvert.DeserializeObject<ATGData>(responseData)!;
-
+                    //List<Races> RacesToXaml = ATGData.UpComing[0].Races!;
                     if (ATGData != null)
                     {
                         if (ATGData.UpComing != null)
@@ -57,6 +58,7 @@ namespace trotracing
                             {
                                 if (i++ == 0)
                                     Console.WriteLine($"{race}, {race.Tracks![0]} \n");
+                                //return new Tuple<bool, List<Races>>(ATGData.SetNextRace(), RacesToXaml);
                                 return ATGData.SetNextRace();
                             }
                         }
@@ -79,7 +81,7 @@ namespace trotracing
             {
                 Console.WriteLine($"Felmeddelande: {e.Message}");
             }
-            
+            //return new Tuple<bool, List<Races>>(false, new List<Races>{ });
             return false;
         }
     }
@@ -103,6 +105,8 @@ namespace trotracing
             string nextRace = $"{this.UpComing[0].Id.Remove(0, 4)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[0].Name}/";
             if (this.BetType == "V86")
                 nextRace = $"{this.UpComing[0].Id.Remove(0, 4)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[1].Name}-{this.UpComing[0]?.Tracks?[0].Name}/";
+            //if (this.BetType == "GS75") NYI
+            //    nextRace = $"{this.UpComing[0].Id.Remove(0, 5)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[0].Name}/";
             Console.WriteLine($"Omgång: {nextRace}");
             string[] AllTextLines = File.ReadAllLines(path);
             AllTextLines[0] = nextRace;
