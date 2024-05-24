@@ -1,0 +1,121 @@
+﻿<Window x:Class="trotracing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:trotracing"
+        mc:Ignorable="d"
+        Background= "{DynamicResource backgroundImage}"
+        Title="Travtipset" Height="450" Width="900">
+
+    <Window.Resources>
+
+        <ImageSource x:Key="imgSource">images/horses.jpg</ImageSource>
+        <ImageBrush x:Key="backgroundImage" ImageSource="{DynamicResource imgSource}" Opacity="0.3"></ImageBrush>
+
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="Tan"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="SteelBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Window.Resources>
+    
+    <Grid>
+
+        <ComboBox x:Name="ComboBoxMeny" SelectedIndex="0" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Background="BurlyWood" >
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="BurlyWood"/>
+                    <Setter Property="BorderBrush" Value="BurlyWood"/>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+
+            <ComboBoxItem x:Name="Meny" Visibility="Collapsed"  >Meny</ComboBoxItem>
+            <Button x:Name="Settings" Height="30" Width="90" Background="SaddleBrown" Click="Settings_Click" >Inställningar</Button>
+            <Button x:Name="RaceType" Height="30" Width="90" Background="SaddleBrown" Click="RaceType_Click" >Välj travlopp</Button>
+            <Button x:Name="GetRace" Height="30" Width="90" Background="SaddleBrown" Click="GetRace_Click" >Hämta travlopp</Button>
+            <Button x:Name="ResultToATG" Height="30" Width="90" Background="SaddleBrown" Click="Results_Click" >Skicka reslutat</Button>
+            <Button x:Name="AboutApp" Height="30" Width="90" Background="SaddleBrown" Click="About_Click" >Om Appen</Button>
+            <Button x:Name="ExitApp" Height="30" Width="90" Background="SaddleBrown" Click="Quit_Click" >Avsluta</Button>
+        </ComboBox>
+
+        <Canvas Name="SelectRaceType" Margin="10,10,10,10" Height="170" Width="100" HorizontalAlignment="Right" Background="BurlyWood" Visibility="Hidden">
+            <RadioButton Name="RadioV75" Margin="10,10,0,0"  Background="Yellow" Foreground="Blue" IsChecked="True" >V75</RadioButton>
+            <RadioButton Name="RadioV86" Margin="10,35,0,0"  Background="Yellow" Foreground="Red" >V86</RadioButton>
+            <RadioButton Name="RadioV64" Margin="10,60,0,0"  Background="Yellow" Foreground="Green" >V64</RadioButton>
+            <Button Style="{DynamicResource ButtonStyle}" x:Name="RadioButton" Height="40" Width="60" Canvas.Left="10" Canvas.Top="100" Background="SaddleBrown" Click="RadioButton_Click">Välj</Button>
+        </Canvas>
+
+        <Canvas Name="NotYetImplemnted" Margin="10,10,10,10" Height="130" Width="200" HorizontalAlignment="Center" Background="BurlyWood" Visibility="Hidden">
+            <Label Canvas.Top="10">Ursäkta, denna funktionen är ännu</Label>
+            <Label Canvas.Top="30">inte implementerad.</Label>
+            <Button Style="{DynamicResource ButtonStyle}" x:Name="CloseClick" Height="40" Width="60" Canvas.Right="20" Canvas.Bottom="20" Background="SaddleBrown" Click="Close_Click">Ok</Button>
+        </Canvas>
+
+        <Canvas Name="About" Margin="10,10,10,10" Height="300" Width="300" HorizontalAlignment="Center" Background="BurlyWood" Visibility="Hidden">
+            <Label Canvas.Top="10">Travtipset är en applikation som med maskininlärning</Label>
+            <Label Canvas.Top="30">förutspår vilka hästar som har störst chans att vinna i</Label>
+            <Label Canvas.Top="50">kommande travomgång.</Label>
+            <Label Canvas.Top="80">1. Börja med att det välja travlopp du vill spela på</Label>
+            <Label Canvas.Top="100">2. Därefter hämtar du data om travloppet så maskin-</Label>
+            <Label Canvas.Top="120">inlärningsmodellen får data att utgå från.</Label>
+            <Label Canvas.Top="140">Slutligen så redovisas på skärmen vilka hästar som har</Label>
+            <Label Canvas.Top="160">störst chans att vinna i respektive lopp.</Label>
+            <Label Canvas.Top="250">© Ari Ketola</Label>
+            <Button Style="{DynamicResource ButtonStyle}" x:Name="CloseClick1" Height="40" Width="60" Canvas.Right="20" Canvas.Bottom="20" Background="SaddleBrown" Click="Close_Click">Ok</Button>
+        </Canvas>
+
+        <Canvas Name="ChooseRaceFirst" Margin="10,10,10,10" Height="130" Width="245" HorizontalAlignment="Center" Background="BurlyWood" Visibility="Hidden">
+            <Label Canvas.Top="10">Du måste först välja travlopp i menyn.</Label>
+            <Label Canvas.Top="30">Därefter kan du använda detta kommandot.</Label>
+            <Button Style="{DynamicResource ButtonStyle}" x:Name="CloseClick2" Height="40" Width="60" Canvas.Right="20" Canvas.Bottom="20" Background="SaddleBrown" Click="Close_Click">Ok</Button>
+        </Canvas>
+
+        <StackPanel x:Name="stackPanel" Height="350" Width="750" Background="SaddleBrown" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Hidden">
+            <TextBlock x:Name="textBlock" Text = "Första siffran i respektive lopp anger hästnummer och andra siffran anger vinstchansen(ju större siffa ju högre vinstchans) &#x0a;********************************************************Lycka till!!!************************************************************* &#x0a;"/>
+            <Button Style="{DynamicResource ButtonStyle}" x:Name="CloseClick3" Height="40" Width="60" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Background="Sienna" Click="Close_Click">Stäng</Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>
