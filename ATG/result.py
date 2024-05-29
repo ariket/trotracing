@@ -22,7 +22,7 @@ Xpred = preddata.drop(columns=["racenum","winnernum","horsename","driver","train
                                "resrace2","pricesumrace2","resrace3","pricesumrace3","resrace4","pricesumrace4","resrace5","pricesumrace5","rp4","rp5"])  
 
 
-# Förbered attribut och målvariabel
+                    # Förbered attribut som ska vara med i maskininlärningen
 X = data.drop(columns=["winner","racenum","winnernum","horsename","driver","trainer","resrace1","pricesumrace1",
                        "resrace2","pricesumrace2","resrace3","pricesumrace3","resrace4","pricesumrace4","resrace5","pricesumrace5","rp4","rp5"]) 
 y = data["winner"]  # Målvariabel: Har värde 1 eller 0, 1 om hästen vann annars 0.

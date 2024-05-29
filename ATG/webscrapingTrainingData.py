@@ -32,6 +32,7 @@ loppV75 = [] #Fyll datum som du vill skrapa
 # "2023-11-15/V86/aby-solvalla/","2023-11-08/V86/jagersro-solvalla/""2023-04-05/V86/jagersro-solvalla/", "2023-04-12/V86/aby-solvalla/", "2023-04-26/V86/aby-solvalla/", "2023-05-03/V86/bergsaker-solvalla/", "2023-05-10/V86/jagersro-solvalla/", "2023-05-17/V86/aby-solvalla/", "2023-06-07/V86/amal/", "2023-06-21/V86/solvalla/", "2023-07-12/V86/solanget/","2023-07-19/V86/eskilstuna/"
 # "2023-08-02/V86/visby/", "2023-08-09/V86/mantorp/","2023-08-02/V86/visby/", "2023-08-09/V86/mantorp/","2023-08-30/V86/aby-solvalla/""2023-09-06/V86/aby-solvalla/", "2023-09-13/V86/jagersro-solvalla/","2023-09-27/V86/aby-solvalla/", "2023-10-04/V86/jagersro-solvalla/"
 
+
 avdelningar = ["avd/1","avd/2","avd/3","avd/4","avd/5","avd/6","avd/7"] #Lägg till "avd8" när skrapning sker på v86
 newData = False
 

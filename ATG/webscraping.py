@@ -27,7 +27,7 @@ newData = False
 def ScrapeAtgData(url):
     print(f"Nu börjar skrapningen av {url} \nAvvakta, det tar ca 15 sekunder....")
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')         #Headless, Scraping without opening the webbrowser
+    #options.add_argument('--headless')         #Headless, Scraping without opening the webbrowser
     driver = webdriver.Chrome(options=options)
     #driver = webdriver.Edge()    #Try this if you only have edge installed on your computer
     #driver = webdriver.Firefox() #Try this if you only have firefox installed on your computer
