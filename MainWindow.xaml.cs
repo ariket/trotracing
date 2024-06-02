@@ -1,18 +1,8 @@
 ﻿using System.Windows;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
-using static System.Net.Mime.MediaTypeNames;
-using System.Reflection.Metadata;
-
 
 namespace trotracing
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
-
     public partial class MainWindow : Window
     {
         public bool DataFromATG = false;
@@ -25,7 +15,7 @@ namespace trotracing
                                   //on trotracing in Solution Explorer and click on Properties and finally
         }                         //change Output type to "Windows Application" 
 
-        private void SetConsoleSettings()
+        private static void SetConsoleSettings()
         {
             Console.SetWindowSize(130, 30);
             Console.BackgroundColor = ConsoleColor.Black;
@@ -77,7 +67,7 @@ namespace trotracing
             ComboBoxMeny.IsEnabled = true;
         }
 
-        public void WriteResultATG()
+        private void WriteResultATG()
         {
             stackPanel.Visibility = Visibility.Visible;
             string path = "..\\..\\..\\ATG\\data\\resultData.txt";
@@ -110,7 +100,6 @@ namespace trotracing
             RaceType.IsEnabled = true;
             GetRace.IsEnabled = true;
         }
-
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             NotYetImplemnted.Visibility = Visibility.Collapsed;

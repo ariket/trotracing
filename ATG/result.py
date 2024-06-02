@@ -116,4 +116,3 @@ path = Path(__file__).parent / "data/resultData.txt"
 with path.open('w+') as file:
     for item in printList:
         file.write(item+"\n")
-
