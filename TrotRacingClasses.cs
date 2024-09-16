@@ -34,6 +34,7 @@ namespace trotracing
 
         public static async Task<bool> GetDataFromATG(string RaceType)
         {
+            
             string apiUrl = "https://www.atg.se/services/racinginfo/v1/api/products/" + RaceType;
 
             using HttpClient client = new();
@@ -100,8 +101,15 @@ namespace trotracing
             
             string path = "..\\..\\..\\ATG\\data\\nextRace.txt";
             string nextRace = $"{this.UpComing[0].Id.Remove(0, 4)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[0].Name}/";
-            if (this.BetType == "V86")
-                nextRace = $"{this.UpComing[0].Id.Remove(0, 4)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[1].Name}-{this.UpComing[0]?.Tracks?[0].Name}/";
+            if (this.BetType == "V86" && this.UpComing[0].Tracks?.Count == 2)
+                try
+                {
+                    nextRace = $"{this.UpComing[0].Id.Remove(0, 4)[0..10]}/{this.BetType}/{this.UpComing[0]?.Tracks?[1].Name}-{this.UpComing[0]?.Tracks?[0].Name}/";
+                }
+                catch
+                {
+                }
+                
  
             Console.WriteLine($"Omgång: {nextRace}");
             string[] AllTextLines = File.ReadAllLines(path);

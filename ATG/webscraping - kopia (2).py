@@ -97,11 +97,14 @@ def ScrapeSorting(raceNumber):
                 try:
                     #line.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]  
                     line.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                    print("Split - Skrapningen lyckades")
                 except:
-                    pass
-                    
-                list.append(line)
-                
+                    try:
+                        line.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                        print("Split - Skrapningen misslyckades")
+                    except:
+                        pass
+                list.append(line)              
     rowNum = 0
     if not dontSave:
         for post in list: #Sorting out useful data from scraped raw-data
@@ -112,7 +115,7 @@ def ScrapeSorting(raceNumber):
             if len(name) == 1:  #broken horse(struken häst)
                 name = post.split("horse-sripkt-HorseCell-styles--horseName")
                 broken = True
-                                
+                
             if rowNum == 1:
                 if broken:  #broken horse(struken häst)
                     driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
@@ -120,8 +123,10 @@ def ScrapeSorting(raceNumber):
                     try:
                         driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                     except:
+                        #Bytt kusk:
+                        #driver = post.split("horse-1i7hnt6-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                         driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
-                           
+                        print(driver)   
                     #driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]                
                 tracknumber = rowNum
                 if tracknumber > 9:
@@ -130,20 +135,33 @@ def ScrapeSorting(raceNumber):
                     horsename = name[1][4:].split("<span ")[0]
             else:
                 if rowNum < len(list):
+                    
+                    if broken:  #broken horse(struken häst)
+                        try:
+                            driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                        except:
+                            driver = "Struken"
+                    else:
+                        try:
+                            driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                        except:
+                            driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                      
+                    
                     horseDataRow1 = f";{tracknumber};{horsename};{driver}" 
                     tracknumber = rowNum
                     if tracknumber > 9:
                         horsename = name[1][4:].split("<span ")[0]
                     else:
                         horsename = name[1][4:].split("<span ")[0]
-                        
-                    if broken:  #broken horse(struken häst)
-                        driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
-                    else:
-                        try:
-                            driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
-                        except:
-                            driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                    
+                    #if broken:  #broken horse(struken häst)
+                    #    driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                    #else:
+                    #    try:
+                    #        driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                    #    except:
+                    #        driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                             
                     percent = post.split("startlist-cell-betdistribution")[1][3:].split("<span style=")[0]
                     #trainer = post.split("startlist-cell-trainer")[1][3:].split("</span></")[0]

@@ -4,7 +4,7 @@ from selenium import webdriver  #Selenium driver is an automated testing framewo
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-#from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options
 
 from bs4 import BeautifulSoup   #Beautiful Soup is a Python library for pulling data out of HTML and XML files.
                                 #Web Scraping with Beautiful Soup.
@@ -27,10 +27,6 @@ newData = False
 def ScrapeAtgData(url):
     print(f"Nu börjar skrapningen av {url} \nAvvakta, det tar ca 15 sekunder....")
     options = webdriver.ChromeOptions()
-    #options.add_argument('--user-data-dir=C:/Users/Ari/AppData/Local/Google/Chrome/User Data/Default')
-    #options.add_argument('--profile-directory=Default')
-    #options.add_argument('--profile-directory=C:/Users/Ari/AppData/Local/Google/Chrome/User Data/Default')
-    #options.add_argument('--disk-cache-dir=C:\Users\Ari\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data') 
     #options.add_argument('--headless')         #Headless, Scraping without opening the webbrowser
     driver = webdriver.Chrome(options=options)
     #driver = webdriver.Edge()    #Try this if you only have edge installed on your computer
@@ -40,31 +36,30 @@ def ScrapeAtgData(url):
 
 
     try:
-        WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth frame-132aezr']"))).click()
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedSuccess MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth frame-132aezr']"))).click()
     except:
-        print('oops 1. klick misslyckades')
+        print('oops. klick misslyckades')
         
         
         #TEST
-    #try:
-    #    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium horse-1erm2vz-RaceSettings-styles--changeStartlistButton']"))).click()
-    #except:
-    #    print('oops. klick misslyckades')
+    try:
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium horse-1erm2vz-RaceSettings-styles--changeStartlistButton']"))).click()
+    except:
+        print('oops. klick misslyckades')
         
-    #try:
-    #    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters horse-1qw7nxx-StartlistCustomizationDrawer-styles--startlistItem']"))).click()
-    #    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiTouchRipple-root horse-w0pj6f']"))).click()
+    try:
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label horse-o488rh']"))).click()
    #     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-checked MuiRadio-root MuiRadio-colorPrimary horse-1ewp53a']"))).click()
         #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters horse-qmct39-StartlistCustomizationDrawer-styles--startlistItem']"))).click()
-   # except:
-   #     print('oops. klick misslyckades')    
+    except:
+        print('oops. klick misslyckades')    
     
     #END TEST    
         
     try:
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium horse-ce1mpu-RaceSettings-styles--expandAllButton']"))).click()
     except:
-        print('oops 2. klick misslyckades')
+        print('oops. klick misslyckades')
         
     x = 0 ; i = 0
     while i < 15:     #Scroll down to bottom of webpage to be able to scrape all data
@@ -99,9 +94,8 @@ def ScrapeSorting(raceNumber):
                     line.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                 except:
                     pass
-                    
-                list.append(line)
-                
+                    #print("Skrapningen misslyckades")
+                list.append(line)              
     rowNum = 0
     if not dontSave:
         for post in list: #Sorting out useful data from scraped raw-data
@@ -112,17 +106,13 @@ def ScrapeSorting(raceNumber):
             if len(name) == 1:  #broken horse(struken häst)
                 name = post.split("horse-sripkt-HorseCell-styles--horseName")
                 broken = True
-                                
+                
             if rowNum == 1:
                 if broken:  #broken horse(struken häst)
-                    driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                    driver = "Stuken" + post.split("horse-3nz4s9-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                   # driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
                 else:
-                    try:
-                        driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
-                    except:
-                        driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
-                           
-                    #driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]                
+                    driver = post.split("horse-8300b3-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]                
                 tracknumber = rowNum
                 if tracknumber > 9:
                     horsename = name[1][4:].split("<span ")[0]
@@ -136,18 +126,18 @@ def ScrapeSorting(raceNumber):
                         horsename = name[1][4:].split("<span ")[0]
                     else:
                         horsename = name[1][4:].split("<span ")[0]
-                        
+                    
                     if broken:  #broken horse(struken häst)
-                        driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                        driver = "Stuken" + post.split("horse-3nz4s9-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
+                        #driver = "Stuken" + post.split("horse-13mtk98-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0] + "Stuken"
                     else:
                         try:
-                            driver = post.split("horse-1hnlc0r-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
+                            driver = post.split("horse-8300b3-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                         except:
                             driver = post.split("horse-1hcp75k-HorseCell-styles--driverName")[1][3:].split("</p><p class=")[0]
                             
                     percent = post.split("startlist-cell-betdistribution")[1][3:].split("<span style=")[0]
-                    #trainer = post.split("startlist-cell-trainer")[1][3:].split("</span></")[0]
-                    trainer = post.split("startlist-cell-trainer\"\" style=\"\"white-space: break-spaces;")[1][3:].split("</span></")[0]
+                    trainer = post.split("<span data-test-id=\"startlist-cell-trainer")[1][3:].split("</span></")[0]
                     try:
                         moneyEarned1 = post.split("startlist-cell-earnings")[1][3:].split("</span></td><td class=")[0]
                         moneyEarned ="".join(c for c in moneyEarned1 if  c.isdecimal())
@@ -199,8 +189,7 @@ def ScrapeSorting(raceNumber):
                             csv_writer.writerow([horseDataRow3]) # Write strings to the file
                     
                 if rowNum == len(list):
-                    #trainer = post.split("startlist-cell-trainer")[1][3:].split("</span></")[0]
-                    trainer = post.split("startlist-cell-trainer\"\" style=\"\"white-space: break-spaces;")[1][3:].split("</span></")[0]
+                    trainer = post.split("<span data-test-id=\"startlist-cell-trainer")[1][3:].split("</span></")[0]
                     percent = post.split("startlist-cell-betdistribution")[1][3:].split("<span style=")[0]
                     try:
                         moneyEarned1 = post.split("startlist-cell-earnings")[1][3:].split("</span></td><td class=")[0]

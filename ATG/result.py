@@ -16,14 +16,14 @@ data = pd.read_csv(path)
 path = Path(__file__).parent / "./data/nextRaceData.csv"
 preddata = pd.read_csv(path)
 
-# Förbered attribut. ta bort(drop) "playpercent", om du vill använda modellen utan att ta hänsyn till hur mycket en häst är spelad.
+# Förbered attribut. ta bort(drop) "moneywin", "playpercent", om du vill använda modellen utan att ta hänsyn till hur mycket en häst är spelad.
 #Tar bort variabler som inte bedöms relevanta för att erhålla bästa möjliga resultat.
-Xpred = preddata.drop(columns=["racenum","winnernum","horsename","driver","trainer","resrace1","pricesumrace1",
+Xpred = preddata.drop(columns=["moneywin","playpercent","racenum","winnernum","horsename","driver","trainer","resrace1","pricesumrace1",
                                "resrace2","pricesumrace2","resrace3","pricesumrace3","resrace4","pricesumrace4","resrace5","pricesumrace5","rp4","rp5"])  
 
 
                     # Förbered attribut som ska vara med i maskininlärningen
-X = data.drop(columns=["winner","racenum","winnernum","horsename","driver","trainer","resrace1","pricesumrace1",
+X = data.drop(columns=["moneywin","playpercent","winner","racenum","winnernum","horsename","driver","trainer","resrace1","pricesumrace1",
                        "resrace2","pricesumrace2","resrace3","pricesumrace3","resrace4","pricesumrace4","resrace5","pricesumrace5","rp4","rp5"]) 
 y = data["winner"]  # Målvariabel: Har värde 1 eller 0, 1 om hästen vann annars 0.
 
